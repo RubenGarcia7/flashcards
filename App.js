@@ -1,21 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
+import DeckList from './components/DeckList'
+import Deck from './components/Deck'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const Stack = createStackNavigator();
+const Tabs = createBottomTabNavigator();
+const HomeStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='DeckList'>
+        <Stack.Screen
+        name='DeckList'
+        component={DeckList}
+        options={{
+          title: 'Your Decks',
+          headerStyle: {
+            backgroundColor: '#E91E63'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            alignSelf: 'center'
+          }
+        }}
+        />
+        <Stack.Screen
+        name='Deck'
+        component={Deck}
+        options={{
+          title: 'Your Decks',
+          headerStyle: {
+            backgroundColor: '#E91E63'
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+          }
+        }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
