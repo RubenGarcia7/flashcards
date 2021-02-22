@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TouchableOpacity, FlatList, StyleSheet, View, Text, Alert } from 'react-native'
+import { connect } from 'react-redux'
+import { handleInitialData } from '../actions/shared'
 
-const DeckList = ({ navigation }) => {
-  const decks = [
+const DeckList = ({ decks, navigation, dispatch }) => {
+  // Load initial data
+   useEffect(() => {
+    dispatch(handleInitialData())
+  }, [])
+
+  console.log(decks)
+
+  const deckList = [
     {name: 'HTML', quizzes: 11, id: 1},
     {name: 'CSS', quizzes: 15, id: 2},
     {name: 'Javascript', quizzes: 9, id: 3},
@@ -16,7 +25,7 @@ const DeckList = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={decks}
+        data={deckList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} onPress={() => handleTouch(item.id)}>
@@ -32,6 +41,14 @@ const DeckList = ({ navigation }) => {
     </View>
   )
 }
+
+function mapStateToProps ({ decks }) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(DeckList)
 
 
 const styles = StyleSheet.create({
@@ -55,4 +72,3 @@ const styles = StyleSheet.create({
 })
 
 
-export default DeckList
