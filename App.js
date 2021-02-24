@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import middleware from './middleware'
 import DeckList from './components/DeckList'
 import Deck from './components/Deck'
+import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
 import reducer from './reducers'
 import { NavigationContainer } from '@react-navigation/native'
@@ -61,6 +62,20 @@ class App extends React.Component {
             headerTintColor: '#fff',
             headerTitleStyle: {
 
+            }
+          }}
+          />
+          <Stack.Screen
+          name='NewDeck'
+          component={NewDeck}
+          options={{
+            title: 'Create Deck',
+            headerStyle: {
+              backgroundColor: '#E91E63'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              alignSelf: 'center'
             }
           }}
           />

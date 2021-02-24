@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { TouchableOpacity, FlatList, StyleSheet, View, Text, Alert } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 
@@ -18,8 +19,12 @@ const DeckList = ({ decks, navigation, dispatch }) => {
     {name: 'React', quizzes: 12, id: 4}
   ]
 
-  const handleTouch = (id) => {
+  const handleTouchDeck = (id) => {
     navigation.navigate('Deck')
+  }
+
+  const handleTouchFloating = () => {
+    navigation.navigate('NewDeck')
   }
 
   return (
@@ -28,7 +33,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
         data={deckList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item} onPress={() => handleTouch(item.id)}>
+          <TouchableOpacity style={styles.item} onPress={() => handleTouchDeck(item.id)}>
             <View>
               <Text>{item.name}</Text>
             </View>
@@ -38,7 +43,11 @@ const DeckList = ({ decks, navigation, dispatch }) => {
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity style={styles.button} onPress={() => handleTouchFloating()}>
+         <Ionicons name="add-outline" size={28} color="white" />
+      </TouchableOpacity>
     </View>
+    
   )
 }
 
@@ -56,9 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 20,
-    padding: 20,  
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    padding: 20 
   },
   item: {
     backgroundColor: '#eee',
@@ -69,6 +76,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
+  button: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E91E63',                             
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  }
 })
 
 
