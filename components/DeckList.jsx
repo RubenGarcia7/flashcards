@@ -10,9 +10,8 @@ const DeckList = ({ decks, navigation, dispatch }) => {
     dispatch(handleInitialData())
   }, [])
 
-  console.log(decks)
 
-  const deckList = [decks]
+  
 
   const handleTouchDeck = (id) => {
     navigation.navigate('Deck')
@@ -25,7 +24,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={deckList}
+        data={decks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} onPress={() => handleTouchDeck(item.id)}>
@@ -33,7 +32,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
               <Text>{item.title}</Text>
             </View>
             <View>
-              <Text>{item.id}</Text>
+              <Text>{item.cards.length}</Text>
             </View>
           </TouchableOpacity>
         )}
