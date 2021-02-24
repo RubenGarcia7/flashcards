@@ -1,15 +1,18 @@
 import React from 'react'
 import { Button, Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, TextInput } from 'react-native'
 import { Formik } from 'formik'
+import { connect } from 'react-redux'
+import { handleAddDeck } from '../actions/decks'
 
-const NewDeck = () => {
+const NewDeck = ({ dispatch }) => {
 
   return (
 
       <Formik
         initialValues={{title: ''}}
         onSubmit={(values) => {
-          console.log(values)
+          console.log(values.title)
+          dispatch(handleAddDeck(values.title))
         }}
       >
         {({ handleChange, handleSubmit, values }) => (
@@ -53,4 +56,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+function mapStateToProps ({ decks }) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(NewDeck)

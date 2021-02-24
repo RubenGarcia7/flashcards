@@ -12,12 +12,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
 
   console.log(decks)
 
-  const deckList = [
-    {name: 'HTML', quizzes: 11, id: 1},
-    {name: 'CSS', quizzes: 15, id: 2},
-    {name: 'Javascript', quizzes: 9, id: 3},
-    {name: 'React', quizzes: 12, id: 4}
-  ]
+  const deckList = [decks]
 
   const handleTouchDeck = (id) => {
     navigation.navigate('Deck')
@@ -35,10 +30,10 @@ const DeckList = ({ decks, navigation, dispatch }) => {
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} onPress={() => handleTouchDeck(item.id)}>
             <View>
-              <Text>{item.name}</Text>
+              <Text>{item.title}</Text>
             </View>
             <View>
-              <Text>{item.quizzes}</Text>
+              <Text>{item.id}</Text>
             </View>
           </TouchableOpacity>
         )}
