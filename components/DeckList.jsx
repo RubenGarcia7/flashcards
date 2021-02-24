@@ -11,10 +11,11 @@ const DeckList = ({ decks, navigation, dispatch }) => {
   }, [])
 
 
-  
-
   const handleTouchDeck = (id) => {
-    navigation.navigate('Deck')
+
+    navigation.navigate('Deck', {
+      id: id
+    })
   }
 
   const handleTouchFloating = () => {

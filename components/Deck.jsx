@@ -1,16 +1,22 @@
 import React from 'react'
-import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
+ from 'react-native'
 
-const Deck = ({ navigation }) => {
+const Deck = ({ navigation, route, decks}) => {
 
+  const id = route.params.id
+  const deck = decks.filter(d => d.id === id)
+  const { title, cards } = deck[0]
+  
   const handleTouch = () => {
     navigation.navigate('NewCard')
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deck Title</Text>
-      <Text style={styles.subtitle}>Number of cards</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.subtitle}>{cards.length} cards</Text>
       <TouchableOpacity style={styles.btnStart}>
         <Text style={styles.btnStartText}>Start Quiz</Text>
       </TouchableOpacity>
@@ -89,4 +95,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Deck
+
+function mapStateToProps ({ decks }) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(Deck)
