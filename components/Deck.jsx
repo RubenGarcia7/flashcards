@@ -1,33 +1,49 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { handleRemoveDeck } from '../actions/decks'
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
 
-const Deck = ({ navigation, route, decks}) => {
+const Deck = ({ dispatch, navigation, route, decks}) => {
 
   const id = route.params.id
   const deck = decks.filter(d => d.id === id)
   const { title, cards } = deck[0]
-  
-  const handleTouch = () => {
+
+
+  const handleAddCard = () => {
     navigation.navigate('NewCard')
+  }
+
+   const handleDelete = (id) => {
+    //  console.log(id)
+    navigation.navigate('DeckList')
+    setTimeout(() => {
+      dispatch(handleRemoveDeck(id))
+    }, 500);
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.subtitle}>{cards.length} cards</Text>
-      <TouchableOpacity style={styles.btnStart}>
+      {deck !== undefined ?  
+      <>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{cards.length} cards</Text>
+        <TouchableOpacity style={styles.btnStart}>
         <Text style={styles.btnStartText}>Start Quiz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.btnAdd} onPress={() => handleTouch()}>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btnAdd} onPress={() => handleAddCard()}>
         <Text style={styles.btnAddText}>Add New Card</Text>
-      </TouchableOpacity>
-      <TouchableWithoutFeedback>
+        </TouchableOpacity>
+        <TouchableWithoutFeedback onPress={() => handleDelete(id)}>
         <Text style={styles.delete}>Delete Deck</Text>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </>
+      : null
+      }      
     </View>
-  )
+   )
+
 }
 
 const styles = StyleSheet.create({
