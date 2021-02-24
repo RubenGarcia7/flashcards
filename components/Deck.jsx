@@ -1,7 +1,12 @@
 import React from 'react'
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 
-const Deck = () => {
+const Deck = ({ navigation }) => {
+
+  const handleTouch = () => {
+    navigation.navigate('NewCard')
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Deck Title</Text>
@@ -9,7 +14,7 @@ const Deck = () => {
       <TouchableOpacity style={styles.btnStart}>
         <Text style={styles.btnStartText}>Start Quiz</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.btnAdd}>
+      <TouchableOpacity style={styles.btnAdd} onPress={() => handleTouch()}>
         <Text style={styles.btnAddText}>Add New Card</Text>
       </TouchableOpacity>
       <TouchableWithoutFeedback>
