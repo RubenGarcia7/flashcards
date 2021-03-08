@@ -1,15 +1,23 @@
 import React from 'react'
 import { Button, Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, TextInput } from 'react-native'
+import { connect } from 'react-redux'
+import { handleAddCard } from '../actions/decks'
 import { Formik } from 'formik'
 
-const NewCard = () => {
+const NewCard = ({ decks, dispatch, route, navigation }) => {
+  const id = route.params.id
 
   return (
-
       <Formik
         initialValues={{title: '', answer: ''}}
         onSubmit={(values) => {
-          console.log(values)
+          navigation.navigate('Deck', {
+            id: id
+          })
+          setTimeout(() => {
+            dispatch(handleAddCard(values.title, values.answer, id)) 
+          }, 500);
+          
         }}
       >
         {({ handleChange, handleSubmit, values }) => (
@@ -60,4 +68,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewCard
+function mapStateToProps ({ decks }) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(NewCard)

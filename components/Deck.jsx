@@ -12,7 +12,10 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
 
 
   const handleAddCard = () => {
-    navigation.navigate('NewCard')
+    navigation.navigate('NewCard', {
+      id: id
+    })
+    
   }
 
    const handleDelete = (id) => {
@@ -23,9 +26,12 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
     }, 500);
   }
 
+  if (!deck) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      {deck !== undefined ?  
       <>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{cards.length} cards</Text>
@@ -39,8 +45,6 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
         <Text style={styles.delete}>Delete Deck</Text>
         </TouchableWithoutFeedback>
       </>
-      : null
-      }      
     </View>
    )
 

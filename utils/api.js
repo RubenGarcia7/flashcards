@@ -1,6 +1,7 @@
 import {
   _getDecks,
-  _saveDeck
+  _saveDeck,
+  _saveCard
 } from './_DATA.js'
 
 export function getInitialData () {
@@ -13,4 +14,8 @@ export function getInitialData () {
 
 export function saveDeck(deckName) {
   return _saveDeck(deckName)
+}
+
+export function saveCard(card) {
+  return _saveCard(card)
 }

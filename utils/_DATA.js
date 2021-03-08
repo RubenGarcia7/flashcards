@@ -26,11 +26,29 @@ function formatDeck ({ deckName }) {
   }
 }
 
+function formatCard ({ title, answer }) {
+  return {
+    title: cardName,
+    answer: answer,
+    id: generateId(),
+  }
+}
+
 export async function _saveDeck ({ deckName }) {
   return new Promise((res, rej) => {
     const formattedDeck = formatDeck({
       deckName
     })
     res(formattedDeck)
+  })
+}
+
+export async function _saveCard ({ title, answer }) {
+  return new Promise((res, rej) => {
+    const formattedCard = formatCard({
+      title,
+      answer
+    })
+    res(formattedCard)
   })
 }
