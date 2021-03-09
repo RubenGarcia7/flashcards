@@ -10,9 +10,15 @@ const DeckList = ({ decks, navigation, dispatch }) => {
     dispatch(handleInitialData())
   }, [])
 
+  // Transforming nested object into array of objects
+  const arr = Object.entries(decks)
+  const decksArray = []
+
+  for(let i = 0; i < arr.length; i++) {
+  decksArray.push(arr[i][1])
+  }
 
   const handleTouchDeck = (id) => {
-
     navigation.navigate('Deck', {
       id: id
     })
@@ -25,7 +31,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={decks}
+        data={decksArray}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} onPress={() => handleTouchDeck(item.id)}>

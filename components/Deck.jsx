@@ -6,16 +6,22 @@ import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
 
 const Deck = ({ dispatch, navigation, route, decks}) => {
 
-  const id = route.params.id
-  const deck = decks.filter(d => d.id === id)
-  const { title, cards } = deck[0]
+  // Transforming nested object into array of objects
+  const arr = Object.entries(decks)
+  const decksArray = []
 
+  for(let i = 0; i < arr.length; i++) {
+  decksArray.push(arr[i][1])
+  }
+
+  const id = route.params.id
+  const deck = decksArray.filter(d => d.id === id)
+  const { title, cards } = deck[0]
 
   const handleAddCard = () => {
     navigation.navigate('NewCard', {
-      id: id
+      id
     })
-    
   }
 
    const handleDelete = (id) => {

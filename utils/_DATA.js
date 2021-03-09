@@ -13,8 +13,10 @@ export const _getDecks = () => {
 }
 
 const decks = {
-  '01': {
-    cards: []
+  '12345678-2ff8-42d3-809e-4e7811936cfe': {
+    cards: [],
+    id: '12345678-2ff8-42d3-809e-4e7811936cfe',
+    title: 'Main Desk'
   }
 }
 

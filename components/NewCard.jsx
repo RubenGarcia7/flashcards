@@ -12,8 +12,9 @@ const NewCard = ({ decks, dispatch, route, navigation }) => {
         initialValues={{title: '', answer: ''}}
         onSubmit={(values) => {
           navigation.navigate('Deck', {
-            id: id
+            id
           })
+          
           setTimeout(() => {
             dispatch(handleAddCard(values.title, values.answer, id)) 
           }, 500);
