@@ -32,6 +32,12 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
     }, 500);
   }
 
+  const handleStartQuiz = () => {
+    navigation.navigate('QuizScreen', {
+      deck
+    })
+  }
+
   if (!deck) {
     return null;
   }
@@ -41,7 +47,7 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
       <>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{cards.length} cards</Text>
-        <TouchableOpacity style={styles.btnStart}>
+        <TouchableOpacity style={styles.btnStart} onPress={() => handleStartQuiz()}>
         <Text style={styles.btnStartText}>Start Quiz</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnAdd} onPress={() => handleAddCard()}>

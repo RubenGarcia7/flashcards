@@ -7,6 +7,7 @@ import DeckList from './components/DeckList'
 import Deck from './components/Deck'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
+import QuizScreen from './components/QuizScreen'
 import reducer from './reducers'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
@@ -70,6 +71,20 @@ class App extends React.Component {
           component={NewDeck}
           options={{
             title: 'Create Deck',
+            headerStyle: {
+              backgroundColor: '#E91E63'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              alignSelf: 'center'
+            }
+          }}
+          />
+          <Stack.Screen
+          name='QuizScreen'
+          component={QuizScreen}
+          options={{
+            title: 'Quiz',
             headerStyle: {
               backgroundColor: '#E91E63'
             },

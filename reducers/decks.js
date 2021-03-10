@@ -30,7 +30,7 @@ export default function decks (state = {}, action) {
         ...state,
           [action.payload.card.id]: {
             ...state[action.payload.card.id],
-            cards: state[action.payload.card.id].cards.concat(action.payload.card.id)
+            cards: state[action.payload.card.id].cards.concat(action.payload.card)
           } 
       }
   
