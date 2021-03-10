@@ -1,19 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { connect } from 'react-redux'
-import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
+import { Ionicons } from '@expo/vector-icons';
+import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Animated }
  from 'react-native'
 
 const QuizCard = ({card, cardIndex, onAnswer, deck}) => {
+  const [isFlipped, setIsFlipped] = useState(false)
 
-  console.log(deck)
+  const remainingQuestions = deck.cards.length - cardIndex
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped)
+  }
 
   return (
     <View style={styles.container}>
-      <Text>{card.title}</Text>
-      <Text>{deck.cards.length - cardIndex} questions remaining</Text>
-      <TouchableOpacity style={styles.btnSubmit} onPress={() => onAnswer()}>
-        <Text style={styles.btnSubmitText}>Submit</Text>
+      {isFlipped === false ?
+        <View style={styles.cardContainer}>
+          <Text style={styles.cardText}>{card.title}</Text>
+        </View>  
+        :
+        <View style={styles.cardContainer}>
+          <Text style={styles.cardText}>{card.answer}</Text>
+        </View>  
+      } 
+      <Text style={styles.remaining}>{remainingQuestions} {remainingQuestions > 1 ? 'questions' : 'question'} remaining</Text>
+      <TouchableOpacity style={styles.btnShow} onPress={() => handleFlip()}>
+        <Ionicons name="reload" size={20} color="white" style={styles.btnShowText}/>
       </TouchableOpacity>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity style={styles.btnWrong} onPress={() => onAnswer()}>
+          <Ionicons name="thumbs-down" size={27} color="white" style={styles.btnWrongText}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btnRight} onPress={() => onAnswer()}>
+          <Ionicons name="thumbs-up" size={27} color="white" style={styles.btnRightText}/>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -29,22 +51,94 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  btnSubmit: {
-    backgroundColor: '#fff',
-    borderRadius: 7,
-    padding: 15,
-    marginBottom: 15,
-    shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 1
-    },
-    elevation: 4
+  cardContainer: {
+    flex: 1,
+    width: '100%',
+    backgroundColor: '#3F51B5',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15
   },
-  btnSubmitText: {
-    color: '#E91E63',
+  cardText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '800'
+  },
+  btnContainer: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  remaining: {
+    marginTop: 20,
+    fontSize: 14
+  },
+  btnRight: {
+    width: 70,
+    height: 70,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',  
+    borderWidth: 5,
+    borderColor: '#4CAF50',
+    // shadowColor: "#000000",
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: 1,
+    //   width: 1
+    // },
+    // elevation: 4
+  },
+  btnRightText: {
+    color: '#4CAF50',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  btnWrong: {
+    width: 70,
+    height: 70,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',  
+    borderWidth: 5,
+    borderColor: '#F44336',
+    // shadowColor: "#000000",
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: 1,
+    //   width: 1
+    // },
+    // elevation: 4
+  },
+  btnWrongText: {
+    color: '#F44336',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  btnShow: {
+    marginTop: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E91E63',  
+    // shadowColor: "#000000",
+    // shadowOpacity: 0.8,
+    // shadowRadius: 2,
+    // shadowOffset: {
+    //   height: 1,
+    //   width: 1
+    // },
+    // elevation: 4
+  },
+  btnShowText: {
+    color: '#fff',
     textAlign: 'center',
     fontWeight: 'bold',
   },
