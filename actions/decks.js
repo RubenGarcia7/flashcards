@@ -41,13 +41,16 @@ export function addCard(card) {
   }
 }
 
-export function handleAddDeck (deckName) {
+export function handleAddDeck (deckName, navigation) {
   return (dispatch) => {
     return saveDeck({
       deckName
     })
     .then((deck) => {
       dispatch(addDeck(deck))
+      navigation.navigate('Deck', {
+        id: deck.id
+      })
     })   
   }
 }

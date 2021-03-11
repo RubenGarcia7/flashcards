@@ -16,13 +16,13 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
 
 
   const handleSubmitRight = () => {
-    console.log('Correct!')
+
     setCurrentCard(currentCard + 1)
     setCorrectAnswers(correctAnswers + 1)
   }
 
   const handleSubmitWrong = () => {
-    console.log('Incorrect!')
+
     setCurrentCard(currentCard + 1)
     setIncorrectAnswers(incorrectAnswers + 1)
   }

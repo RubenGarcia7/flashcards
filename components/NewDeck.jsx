@@ -4,15 +4,14 @@ import { Formik } from 'formik'
 import { connect } from 'react-redux'
 import { handleAddDeck } from '../actions/decks'
 
-const NewDeck = ({ navigation, dispatch }) => {
+const NewDeck = ({ navigation, dispatch, decks }) => {
 
   return (
 
       <Formik
         initialValues={{title: ''}}
         onSubmit={(values) => {
-          dispatch(handleAddDeck(values.title))
-          navigation.navigate('DeckList')
+          dispatch(handleAddDeck(values.title, navigation))
         }}
       >
         {({ handleChange, handleSubmit, values }) => (

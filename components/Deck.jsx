@@ -25,7 +25,6 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
   }
 
    const handleDelete = (id) => {
-    //  console.log(id)
     navigation.navigate('DeckList')
     setTimeout(() => {
       dispatch(handleRemoveDeck(id))
