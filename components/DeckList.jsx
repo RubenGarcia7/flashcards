@@ -20,7 +20,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
 
   const handleTouchDeck = (id) => {
     navigation.navigate('Deck', {
-      id: id
+      id
     })
   }
 
@@ -30,13 +30,14 @@ const DeckList = ({ decks, navigation, dispatch }) => {
 
   return (
     <View style={styles.container}>
+    <Text style={styles.title}>Select a deck to start</Text>
       <FlatList
         data={decksArray}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity style={styles.item} onPress={() => handleTouchDeck(item.id)}>
             <View>
-              <Text>{item.title}</Text>
+              <Text style={styles.itemTitle}>{item.title}</Text>
             </View>
             <View>
               <Text>{item.cards.length}</Text>
@@ -45,7 +46,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
         )}
       />
       <TouchableOpacity style={styles.button} onPress={() => handleTouchFloating()}>
-         <Ionicons name="add-outline" size={28} color="white" />
+         <Ionicons name="add-outline" size={24} color='white' />
       </TouchableOpacity>
     </View>
     
@@ -66,16 +67,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 20,
-    padding: 20 
+    padding: 20,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '500',
+    marginTop: 10,
+    marginBottom: 15
   },
   item: {
+    display: 'flex',
+    alignItems: 'center',
     backgroundColor: '#eee',
     borderRadius: 7,
     padding: 20,
     marginTop: 10,
     marginBottom: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+  },
+  itemTitle: {
+    fontWeight: '500'
   },
   button: {
     width: 60,

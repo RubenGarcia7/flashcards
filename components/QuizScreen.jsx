@@ -7,11 +7,13 @@ import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
 
 const QuizScreen = ({dispatch, navigation, route, decks}) => {
   const [currentCard, setCurrentCard] = useState(0)
+  const [isCompleted, setIsCompleted] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
 
   const deck = route.params.deck[0]
   const cards = route.params.deck[0].cards
+
 
   const handleSubmitRight = () => {
     console.log('Correct!')
@@ -19,10 +21,14 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
     setCorrectAnswers(correctAnswers + 1)
   }
 
-  const handleSubmitWrong= () => {
+  const handleSubmitWrong = () => {
     console.log('Incorrect!')
     setCurrentCard(currentCard + 1)
     setIncorrectAnswers(incorrectAnswers + 1)
+  }
+
+  const handleCompleted = () => {
+    setCurrentCard(0)
   }
 
   return (
@@ -30,7 +36,7 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
       { currentCard < cards.length ?
         <QuizCard card={cards[currentCard]} deck={deck} cardIndex={currentCard} onAnswerRight={handleSubmitRight} onAnswerWrong={handleSubmitWrong}/>
         : 
-        <QuizResult correctAnswers={correctAnswers} incorrectAnswers={incorrectAnswers}/>
+        <QuizResult correctAnswers={correctAnswers} incorrectAnswers={incorrectAnswers} navigation={navigation} deck={deck} onCompleted={handleCompleted}/>
       }
     </>
   )

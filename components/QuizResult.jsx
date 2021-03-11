@@ -2,21 +2,28 @@ import React from 'react'
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
 
-const QuizResult = ({ correctAnswers, incorrectAnswers}) => {
+const QuizResult = ({ correctAnswers, incorrectAnswers, navigation, deck, onCompleted}) => {
 
   const totalAnswers = correctAnswers + incorrectAnswers
   const score = (correctAnswers / totalAnswers * 100).toFixed(0)
+  const id = deck.id
+
+  const handleBackToDeck = () => {
+    navigation.navigate('Deck', {
+      id
+    })
+  }
 
   return (
     <View style={styles.container}>
-      <Text>Quiz Completed</Text>
-      <Text>You have answered {correctAnswers} correct out of {totalAnswers}</Text>
-      <Text>Your score is {score}%</Text>
-      <TouchableOpacity>
-        <Text>Restart Quiz</Text>
+      <Text style={styles.title}>Quiz Completed</Text>
+      <Text style={styles.result}>You have answered {correctAnswers} correctly out of {totalAnswers}</Text>
+      <Text style={styles.score}>Your score is {score}%</Text>
+      <TouchableOpacity style={styles.btnPrimary} onPress={() => onCompleted()}>
+        <Text style={styles.btnPrimaryText}>Restart Quiz</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Text>Back To Deck</Text>
+      <TouchableOpacity style={styles.btnSecondary} onPress={() => handleBackToDeck()}>
+        <Text style={styles.btnSecondaryText}>Back To Deck</Text>
       </TouchableOpacity>
     </View>
   )
@@ -32,22 +39,60 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
-  btnSubmit: {
-    backgroundColor: '#fff',
+  title: {
+    fontWeight: '600',
+    fontSize: 18,
+    marginBottom: 10
+  },
+  result: {
+    fontSize: 16,
+    marginBottom: 10
+  },
+  score: {
+    fontSize: 16,
+    color: '#E91E63',
+    fontWeight: '600',
+    marginBottom: 20
+  },
+  btnPrimary: {
+    backgroundColor: '#E91E63',
     borderRadius: 7,
     padding: 15,
-    marginBottom: 15,
     shadowColor: "#000000",
     shadowOpacity: 0.8,
     shadowRadius: 2,
+    marginTop: 25,
+    marginBottom: 15,
+    width: '100%',
     shadowOffset: {
       height: 1,
       width: 1
     },
     elevation: 4
   },
-  btnSubmitText: {
+  btnPrimaryText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  btnSecondary: {
+    backgroundColor: '#fff',
+    borderRadius: 7,
+    padding: 15,
+    marginBottom: 15,
+    shadowColor: "#000000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    width: '100%',
+    shadowOffset: {
+      height: 1,
+      width: 1
+    },
+    elevation: 4
+  },
+  btnSecondaryText: {
     color: '#E91E63',
     textAlign: 'center',
     fontWeight: 'bold',
