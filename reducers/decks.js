@@ -13,17 +13,10 @@ export default function decks (state = {}, action) {
         ...state,
         [action.payload.deck.id]: action.payload.deck
       }
-    
-      // FIX LATER !!
+
     case REMOVE_DECK :
-      // return state.filter(element => element.id !== action.payload.id)
-      return {
-        ...state,
-        decks: {
-          ...state.decks,
-          [action.payload.id]: [...state.decks[action.payload.decks]].filter((id) => id !== action.payload.id)
-        }
-      }
+
+      return Object.fromEntries(Object.entries(state).filter(([key, value]) => !value.id.includes(action.payload.id)))
 
     case ADD_CARD:
       return {

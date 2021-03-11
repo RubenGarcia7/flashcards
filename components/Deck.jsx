@@ -39,9 +39,8 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
 
   if (!deck) {
     return null;
-  }
-
-  return (
+  } else {
+    return (
     <View style={styles.container}>
       <>
         <Text style={styles.title}>{title}</Text>
@@ -58,7 +57,7 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
       </>
     </View>
    )
-
+  }
 }
 
 const styles = StyleSheet.create({
