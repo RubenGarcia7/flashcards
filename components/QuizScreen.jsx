@@ -6,24 +6,31 @@ import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
 
 const QuizScreen = ({dispatch, navigation, route, decks}) => {
- const [currentCard, setCurrentCard] = useState(0)
+  const [currentCard, setCurrentCard] = useState(0)
+  const [correctAnswers, setCorrectAnswers] = useState(0)
+  const [incorrectAnswers, setIncorrectAnswers] = useState(0)
 
   const deck = route.params.deck[0]
   const cards = route.params.deck[0].cards
 
-  console.log(cards)
-
-  const handleSubmit = () => {
-
+  const handleSubmitRight = () => {
+    console.log('Correct!')
     setCurrentCard(currentCard + 1)
+    setCorrectAnswers(correctAnswers + 1)
+  }
+
+  const handleSubmitWrong= () => {
+    console.log('Incorrect!')
+    setCurrentCard(currentCard + 1)
+    setIncorrectAnswers(incorrectAnswers + 1)
   }
 
   return (
     <>
       { currentCard < cards.length ?
-        <QuizCard card={cards[currentCard]} deck={deck} cardIndex={currentCard} onAnswer={handleSubmit}/>
+        <QuizCard card={cards[currentCard]} deck={deck} cardIndex={currentCard} onAnswerRight={handleSubmitRight} onAnswerWrong={handleSubmitWrong}/>
         : 
-        <QuizResult />
+        <QuizResult correctAnswers={correctAnswers} incorrectAnswers={incorrectAnswers}/>
       }
     </>
   )

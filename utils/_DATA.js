@@ -14,7 +14,7 @@ export const _getDecks = () => {
 
 const decks = {
   '12345678-2ff8-42d3-809e-4e7811936cfe': {
-    cards: [],
+    cards: [{title: 'What does CSS stand for?', answer: 'Cascading Style Sheets', id: '56464-345345-78898-4534'}, {title: 'What is HTML?', answer: 'The language of the web', id: '1646-245345-78898-4534'}, {title: 'How are inexperienced developers called?', answer: 'Junior Developers', id: '02454-345345-78898-4534'}],
     id: '12345678-2ff8-42d3-809e-4e7811936cfe',
     title: 'Main Desk'
   }

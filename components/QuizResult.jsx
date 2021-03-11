@@ -2,11 +2,16 @@ import React from 'react'
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
 
-const QuizResult = () => {
+const QuizResult = ({ correctAnswers, incorrectAnswers}) => {
+
+  const totalAnswers = correctAnswers + incorrectAnswers
+  const score = (correctAnswers / totalAnswers * 100).toFixed(0)
+
   return (
     <View style={styles.container}>
       <Text>Quiz Completed</Text>
-      <Text>You have answered X correct</Text>
+      <Text>You have answered {correctAnswers} correct out of {totalAnswers}</Text>
+      <Text>Your score is {score}%</Text>
       <TouchableOpacity>
         <Text>Restart Quiz</Text>
       </TouchableOpacity>

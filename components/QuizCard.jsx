@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet, Animated }
  from 'react-native'
 
-const QuizCard = ({card, cardIndex, onAnswer, deck}) => {
+const QuizCard = ({card, cardIndex, onAnswerRight, onAnswerWrong, deck}) => {
   const [isFlipped, setIsFlipped] = useState(false)
 
   const remainingQuestions = deck.cards.length - cardIndex
@@ -29,10 +29,10 @@ const QuizCard = ({card, cardIndex, onAnswer, deck}) => {
         <Ionicons name="reload" size={20} color="white" style={styles.btnShowText}/>
       </TouchableOpacity>
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.btnWrong} onPress={() => onAnswer()}>
+        <TouchableOpacity style={styles.btnWrong} onPress={() => onAnswerWrong()}>
           <Ionicons name="thumbs-down" size={27} color="white" style={styles.btnWrongText}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btnRight} onPress={() => onAnswer()}>
+        <TouchableOpacity style={styles.btnRight} onPress={() => onAnswerRight()}>
           <Ionicons name="thumbs-up" size={27} color="white" style={styles.btnRightText}/>
         </TouchableOpacity>
       </View>
@@ -57,10 +57,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#3F51B5',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 15
+    borderRadius: 15,
+    padding: 20
   },
   cardText: {
     color: '#fff',
+    textAlign: 'center',
     fontSize: 18,
     fontWeight: '800'
   },
