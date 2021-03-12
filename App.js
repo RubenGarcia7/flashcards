@@ -11,6 +11,7 @@ import QuizScreen from './components/QuizScreen'
 import reducer from './reducers'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { setLocalNotification } from './utils/helpers'
 
 const store = createStore(reducer, middleware)
 
@@ -19,6 +20,10 @@ const HomeStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 
 class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
+
   render() {
   return (
     <Provider store={store}>
