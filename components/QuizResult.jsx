@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 const QuizResult = ({ correctAnswers, incorrectAnswers, navigation, deck, onCompleted}) => {
+  // Reset notification after submitting the quiz
+  useEffect(() => {
+    clearLocalNotification().then(setLocalNotification).then(console.log('Success!'))
+  }, [])
 
   const totalAnswers = correctAnswers + incorrectAnswers
   const score = (correctAnswers / totalAnswers * 100).toFixed(0)
