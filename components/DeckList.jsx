@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { TouchableOpacity, FlatList, StyleSheet, View, Text, Alert } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { Animated, TouchableOpacity, TouchableWithoutFeedback, FlatList, StyleSheet, View, Text, Alert } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
@@ -10,6 +10,8 @@ const DeckList = ({ decks, navigation, dispatch }) => {
     dispatch(handleInitialData())
   }, [])
 
+  const [activeBtn, setActiveBtn] = useState(null)
+
   // Transforming nested object into array of objects
   const arr = Object.entries(decks)
   const decksArray = []
@@ -18,33 +20,78 @@ const DeckList = ({ decks, navigation, dispatch }) => {
   decksArray.push(arr[i][1])
   }
 
-  const handleTouchDeck = (id) => {
-    navigation.navigate('Deck', {
-      id
-    })
-  }
-
+  
   const handleTouchFloating = () => {
     navigation.navigate('NewDeck')
   }
 
-  return (
-    <View style={styles.container}>
-    <Text style={styles.title}>Select a deck to start</Text>
-      <FlatList
-        data={decksArray}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item} onPress={() => handleTouchDeck(item.id)}>
+  const scaleValue = new Animated.Value(0);
+
+  const handleTouchDeck = (index, id) => {
+    setActiveBtn(index)
+
+    scaleValue.setValue(0);
+    Animated.timing(
+        scaleValue,
+        {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true 
+        }
+    ).start();
+    
+    setTimeout(() => {
+      navigation.navigate('Deck', {
+      id
+     })
+    }, 300);
+  }
+
+  const buttonScale = scaleValue.interpolate({
+  inputRange: [0, 0.5, 1.2],
+  outputRange: [1, 1.1, 1]
+  });
+
+  const renderBtn = ({ item, index }) => {
+    return (
+      <TouchableOpacity style={styles.itemBtn} onPress={() => handleTouchDeck(index, item.id)}>
+        {activeBtn === index && (
+          <Animated.View style={[styles.itemContainer, {
+            transform: [{
+              scale: buttonScale
+            }]
+          }]}>
             <View>
               <Text style={styles.itemTitle}>{item.title}</Text>
             </View>
             <View>
               <Text>{item.cards.length}</Text>
             </View>
-          </TouchableOpacity>
+          </Animated.View>
         )}
+        {activeBtn !== index && (
+          <View style={styles.itemContainer}>
+            <View>
+              <Text style={styles.itemTitle}>{item.title}</Text>
+            </View>
+            <View>
+              <Text>{item.cards.length}</Text>
+            </View>
+          </View>
+        )}   
+      </TouchableOpacity>
+    )}
+    
+  return (
+    <View style={styles.container}>
+    <Text style={styles.title}>Select a deck to start</Text>
+
+      <FlatList
+        data={decksArray}
+        keyExtractor={(item) => item.id}
+        renderItem={renderBtn}
       />
+
       <TouchableOpacity style={styles.button} onPress={() => handleTouchFloating()}>
          <Ionicons name="add-outline" size={24} color='white' />
       </TouchableOpacity>
@@ -76,7 +123,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 15
   },
-  item: {
+  itemBtn: {
+    
+  },
+  itemContainer: {
+    margin: 15,
     display: 'flex',
     alignItems: 'center',
     backgroundColor: '#eee',
