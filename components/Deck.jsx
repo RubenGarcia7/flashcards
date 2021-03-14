@@ -16,7 +16,6 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
 
   const id = route.params.id
   const deck = decksArray.filter(d => d.id === id)
-  const { title, cards } = deck[0]
 
   const handleAddCard = () => {
     navigation.navigate('NewCard', {
@@ -36,15 +35,12 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
       deck
     })
   }
-
-  if (!deck) {
-    return null;
-  } else {
-    return (
+  
+  return (
     <View style={styles.container}>
       <>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{cards.length} cards</Text>
+        <Text style={styles.title}>{ deck && deck[0].title}</Text>
+        <Text style={styles.subtitle}>{ deck && deck[0].cards.length} cards</Text>
         <TouchableOpacity style={styles.btnStart} onPress={() => handleStartQuiz()}>
         <Text style={styles.btnStartText}>Start Quiz</Text>
         </TouchableOpacity>
@@ -57,7 +53,7 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
       </>
     </View>
    )
-  }
+  
 }
 
 const styles = StyleSheet.create({
