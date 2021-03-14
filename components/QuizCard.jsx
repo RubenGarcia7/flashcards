@@ -40,7 +40,7 @@ const QuizCard = ({card, cardIndex, onAnswerRight, onAnswerWrong, deck}) => {
         <Ionicons name="reload" size={20} color="white" style={styles.btnShowText}/>
       </TouchableOpacity>
       <View style={styles.btnContainer}>
-        <TouchableOpacity style={styles.btnWrong} onPress={() => handleOnAnswerRight()}>
+        <TouchableOpacity style={styles.btnWrong} onPress={() => handleOnAnswerWrong()}>
           <Ionicons name="thumbs-down" size={27} color="white" style={styles.btnWrongText}/>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnRight} onPress={() => handleOnAnswerRight()}>

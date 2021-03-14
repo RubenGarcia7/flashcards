@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
 import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
-const QuizResult = ({ correctAnswers, incorrectAnswers, navigation, deck, onCompleted}) => {
+const QuizResult = ({ correctAnswers, incorrectAnswers, navigation, deck, onCompletedRestart, onCompletedBack}) => {
   // Reset notification after submitting the quiz
   useEffect(() => {
     clearLocalNotification().then(setLocalNotification).then(console.log('Success!'))
@@ -13,21 +13,15 @@ const QuizResult = ({ correctAnswers, incorrectAnswers, navigation, deck, onComp
   const score = (correctAnswers / totalAnswers * 100).toFixed(0)
   const id = deck.id
 
-  const handleBackToDeck = () => {
-    navigation.navigate('Deck', {
-      id
-    })
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Quiz Completed</Text>
       <Text style={styles.result}>You have answered {correctAnswers} correctly out of {totalAnswers}</Text>
       <Text style={styles.score}>Your score is {score}%</Text>
-      <TouchableOpacity style={styles.btnPrimary} onPress={() => onCompleted()}>
+      <TouchableOpacity style={styles.btnPrimary} onPress={() => onCompletedRestart()}>
         <Text style={styles.btnPrimaryText}>Restart Quiz</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.btnSecondary} onPress={() => handleBackToDeck()}>
+      <TouchableOpacity style={styles.btnSecondary} onPress={() => onCompletedBack(id)}>
         <Text style={styles.btnSecondaryText}>Back To Deck</Text>
       </TouchableOpacity>
     </View>

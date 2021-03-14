@@ -7,7 +7,6 @@ import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
 
 const QuizScreen = ({dispatch, navigation, route, decks}) => {
   const [currentCard, setCurrentCard] = useState(0)
-  const [isCompleted, setIsCompleted] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [incorrectAnswers, setIncorrectAnswers] = useState(0)
 
@@ -27,8 +26,20 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
     setIncorrectAnswers(incorrectAnswers + 1)
   }
 
-  const handleCompleted = () => {
+  const handleOnCompletedRestart = () => {
     setCurrentCard(0)
+    setCorrectAnswers(0)
+    setIncorrectAnswers(0)
+  }
+
+  const handleOnCompletedBack= (id) => {
+    setCurrentCard(0)
+    setCorrectAnswers(0)
+    setIncorrectAnswers(0)
+
+    navigation.navigate('Deck', {
+      id
+    })
   }
 
   return (
@@ -36,7 +47,8 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
       { currentCard < cards.length ?
         <QuizCard card={cards[currentCard]} deck={deck} cardIndex={currentCard} onAnswerRight={handleSubmitRight} onAnswerWrong={handleSubmitWrong}/>
         : 
-        <QuizResult correctAnswers={correctAnswers} incorrectAnswers={incorrectAnswers} navigation={navigation} deck={deck} onCompleted={handleCompleted}/>
+        <QuizResult correctAnswers={correctAnswers} incorrectAnswers={incorrectAnswers} navigation={navigation} deck={deck} onCompletedRestart={handleOnCompletedRestart}
+        onCompletedBack={handleOnCompletedBack}/>
       }
     </>
   )
