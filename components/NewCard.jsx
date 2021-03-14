@@ -60,7 +60,7 @@ const NewCard = ({ decks, dispatch, route, navigation }) => {
               {touched.answer && errors.answer}
             </Text>
          
-            <Button title='Submit' color='#E91E63' onPress={handleSubmit}/>
+            <Button title='Add Card' color='#E91E63' onPress={handleSubmit}/>
           </View>
         )}
       </Formik>

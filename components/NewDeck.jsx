@@ -34,7 +34,7 @@ const NewDeck = ({ navigation, dispatch, decks }) => {
             <Text style={styles.errorMessage}>
               {touched.title && errors.title}
             </Text>
-            <Button title='Submit' color='#E91E63' onPress={handleSubmit}/>
+            <Button title='Create Deck' color='#E91E63' onPress={handleSubmit}/>
           </View>
         )}
       </Formik>
