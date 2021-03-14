@@ -26,14 +26,14 @@ const NewCard = ({ decks, dispatch, route, navigation }) => {
             <Text style={styles.label}>What is the title of your card?</Text>
             <TextInput
               style={styles.input}
-              placeholder='title'
+              placeholder='Question'
               onChangeText={handleChange('title')}
               value={values.title}
             />
             <Text style={styles.label}>What is the answer of your card?</Text>
             <TextInput
               style={styles.input}
-              placeholder='answer'
+              placeholder='Answer'
               onChangeText={handleChange('answer')}
               value={values.answer}
             />

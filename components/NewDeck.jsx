@@ -19,7 +19,7 @@ const NewDeck = ({ navigation, dispatch, decks }) => {
             <Text style={styles.label}>What is the title of your deck?</Text>
             <TextInput
               style={styles.input}
-              placeholder='title'
+              placeholder='Title'
               onChangeText={handleChange('title')}
               value={values.title}
             />
