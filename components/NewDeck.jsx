@@ -3,18 +3,26 @@ import { Button, Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSh
 import { Formik } from 'formik'
 import { connect } from 'react-redux'
 import { handleAddDeck } from '../actions/decks'
+import * as Yup from 'yup'
 
 const NewDeck = ({ navigation, dispatch, decks }) => {
 
-  return (
+  const validationSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(2, 'Title must be at least 2 characters')
+      .max(50, "Title can't have more than 50 characters")
+      .required('Title is a required field')
+  })
 
+  return (
       <Formik
         initialValues={{title: ''}}
+        validationSchema={validationSchema}
         onSubmit={(values) => {
           dispatch(handleAddDeck(values.title, navigation))
         }}
       >
-        {({ handleChange, handleSubmit, values }) => (
+        {({ handleChange, handleSubmit, values, touched, errors }) => (
           <View style={styles.form}>
             <Text style={styles.label}>What is the title of your deck?</Text>
             <TextInput
@@ -23,6 +31,9 @@ const NewDeck = ({ navigation, dispatch, decks }) => {
               onChangeText={handleChange('title')}
               value={values.title}
             />
+            <Text style={styles.errorMessage}>
+              {touched.title && errors.title}
+            </Text>
             <Button title='Submit' color='#E91E63' onPress={handleSubmit}/>
           </View>
         )}
@@ -52,6 +63,11 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 10,
     fontSize: 18
+  },
+  errorMessage: {
+    color: 'crimson',
+    fontWeight: 'bold',
+    marginBottom: 20,
   }
 })
 

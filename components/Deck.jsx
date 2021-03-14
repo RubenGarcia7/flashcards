@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     color: '#E91E63',
     textAlign: 'center',
     marginBottom: 10,
+    fontWeight: 'bold'
   },
   subtitle: {
     color: '#F06292',
@@ -120,8 +121,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   delete: {
-    color: '#F44336',
-    textAlign: 'center'
+    color: '#E91E63',
+    textAlign: 'center',
+    fontWeight: 'bold'
   }
 })
 
