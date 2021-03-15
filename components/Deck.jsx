@@ -17,6 +17,8 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
   const id = route.params.id
   const deck = decksArray.filter(d => d.id === id)
 
+  console.log('Hey', id)
+
   const handleAddCard = () => {
     navigation.navigate('NewCard', {
       id
@@ -36,8 +38,9 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
     })
   }
   
-  return (
+  return ( 
     <View style={styles.container}>
+    {deck !== undefined ? 
       <>
         <Text style={styles.title}>{ deck && deck[0].title}</Text>
         <Text style={styles.subtitle}>{ deck && deck[0].cards.length} cards</Text>
@@ -51,6 +54,9 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
         <Text style={styles.delete}>Delete Deck</Text>
         </TouchableWithoutFeedback>
       </>
+      :
+      null
+    }   
     </View>
    )
   
