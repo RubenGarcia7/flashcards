@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 
 const NewDeck = ({ navigation, dispatch, decks }) => {
 
+  // Form validation schema
   const validationSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, 'Title must be at least 2 characters')

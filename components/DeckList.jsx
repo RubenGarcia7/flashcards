@@ -15,11 +15,9 @@ const DeckList = ({ decks, navigation, dispatch }) => {
   // Transforming nested object into array of objects
   const arr = Object.entries(decks)
   const decksArray = []
-
   for(let i = 0; i < arr.length; i++) {
   decksArray.push(arr[i][1])
   }
-
   
   const handleTouchFloating = () => {
     navigation.navigate('NewDeck')
@@ -27,6 +25,7 @@ const DeckList = ({ decks, navigation, dispatch }) => {
 
   const scaleValue = new Animated.Value(0);
 
+  // Start animatin and navigate to Deck
   const handleTouchDeck = (index, id) => {
     setActiveBtn(index)
 
@@ -47,15 +46,19 @@ const DeckList = ({ decks, navigation, dispatch }) => {
     }, 300);
   }
 
+  // Set animation values
   const buttonScale = scaleValue.interpolate({
   inputRange: [0, 0.5, 1.2],
   outputRange: [1, 1.1, 1]
   });
-
+  
+  // Button component
   const renderBtn = ({ item, index }) => {
     return (
       <TouchableOpacity style={styles.itemBtn} onPress={() => handleTouchDeck(index, item.id)}>
-        {activeBtn === index && (
+        {
+        // Enable animation only on the button that is clicked
+        activeBtn === index && (
           <Animated.View style={[styles.itemContainer, {
             transform: [{
               scale: buttonScale
@@ -85,7 +88,6 @@ const DeckList = ({ decks, navigation, dispatch }) => {
   return (
     <View style={styles.container}>
     <Text style={styles.title}>Select a deck to start</Text>
-
       <FlatList
         data={decksArray}
         keyExtractor={(item) => item.id}

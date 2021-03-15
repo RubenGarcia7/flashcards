@@ -9,15 +9,14 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
   // Transforming nested object into array of objects
   const arr = Object.entries(decks)
   const decksArray = []
-
   for(let i = 0; i < arr.length; i++) {
   decksArray.push(arr[i][1])
   }
 
+  // Get deck id
   const id = route.params.id
+  // Get deck object from decks
   const deck = decksArray.filter(d => d.id === id)
-
-  console.log('Hey', id)
 
   const handleAddCard = () => {
     navigation.navigate('NewCard', {

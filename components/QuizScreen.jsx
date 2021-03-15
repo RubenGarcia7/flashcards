@@ -13,7 +13,6 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
   const deck = route.params.deck[0]
   const cards = route.params.deck[0].cards
 
-
   const handleSubmitRight = () => {
 
     setCurrentCard(currentCard + 1)
@@ -27,12 +26,14 @@ const QuizScreen = ({dispatch, navigation, route, decks}) => {
   }
 
   const handleOnCompletedRestart = () => {
+    // Reset values after completing Quiz
     setCurrentCard(0)
     setCorrectAnswers(0)
     setIncorrectAnswers(0)
   }
 
   const handleOnCompletedBack= (id) => {
+    // Reset values after completing Quiz
     setCurrentCard(0)
     setCorrectAnswers(0)
     setIncorrectAnswers(0)

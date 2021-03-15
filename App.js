@@ -16,8 +16,6 @@ import { setLocalNotification } from './utils/helpers'
 const store = createStore(reducer, middleware)
 
 const Stack = createStackNavigator();
-const HomeStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount() {

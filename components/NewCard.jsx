@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 const NewCard = ({ decks, dispatch, route, navigation }) => {
   const id = route.params.id
 
+  // Form validation schema
   const validationSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, 'Title must be at least 2 characters')
