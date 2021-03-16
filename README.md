@@ -32,7 +32,7 @@ $ npm start
 1. Flip cards so you can see the correct answers
 1. Final score
 
-This project has been tested in both iOS and Android devices with the Expo Go app
+This project has been tested in iOS with the Expo Go app
 
 # Author
 * **Ruben Garcia Bri** - 

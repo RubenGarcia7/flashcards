@@ -21,6 +21,7 @@ const NewDeck = ({ navigation, dispatch, decks }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           dispatch(handleAddDeck(values.title, navigation))
+          // console.log(values.title)
         }}
       >
         {({ handleChange, handleSubmit, values, touched, errors }) => (
