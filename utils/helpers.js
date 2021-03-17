@@ -1,6 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
-import { AsyncStorage } from 'react-native'
-import * as Notifications from 'expo-notifications';
+import 'react-native-get-random-values'
+import { v4 as uuidv4 } from 'uuid'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import * as Notifications from 'expo-notifications'
 import * as Permissions from 'expo-permissions'
 
 const NOTIFICATION_KEY = 'UdaciFlashcards:notifications'
