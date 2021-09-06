@@ -48,9 +48,6 @@ export function handleAddDeck (deckName, navigation) {
     })
     .then((deck) => {
       dispatch(addDeck(deck))
-      navigation.navigate('Deck', {
-        id: deck.id
-      })
     })   
   }
 }

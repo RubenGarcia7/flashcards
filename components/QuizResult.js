@@ -5,9 +5,9 @@ import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 const QuizResult = ({ correctAnswers, incorrectAnswers, navigation, deck, onCompletedRestart, onCompletedBack}) => {
   // Reset notification after submitting the quiz
-  useEffect(() => {
-    clearLocalNotification().then(setLocalNotification)
-  }, [])
+  // useEffect(() => {
+  //   clearLocalNotification().then(setLocalNotification)
+  // }, [])
 
   const totalAnswers = correctAnswers + incorrectAnswers
   const score = (correctAnswers / totalAnswers * 100).toFixed(0)

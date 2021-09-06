@@ -22,7 +22,7 @@ export function clearLocalNotification () {
 //       sound: true,
 //       priority: 'high',
 //       sticky: false,
-//       vibrate: true
+//       vibrate: true  
 //     }
 //   }
 // }

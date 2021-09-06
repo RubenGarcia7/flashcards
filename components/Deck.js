@@ -4,19 +4,7 @@ import { handleRemoveDeck } from '../actions/decks'
 import { Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet }
  from 'react-native'
 
-const Deck = ({ dispatch, navigation, route, decks}) => {
-
-  // Transforming nested object into array of objects
-  const arr = Object.entries(decks)
-  const decksArray = []
-  for(let i = 0; i < arr.length; i++) {
-  decksArray.push(arr[i][1])
-  }
-
-  // Get deck id
-  const id = route.params.id
-  // Get deck object from decks
-  const deck = decksArray.filter(d => d.id === id)
+const Deck = ({ dispatch, navigation, deck, id}) => {
 
   const handleAddCard = () => {
     navigation.navigate('NewCard', {
@@ -24,11 +12,9 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
     })
   }
 
-   const handleDelete = (id) => {
+   const handleDelete = (id) => { 
     navigation.navigate('DeckList')
-    setTimeout(() => {
-      dispatch(handleRemoveDeck(id))
-    }, 500);
+    dispatch(handleRemoveDeck(id))
   }
 
   const handleStartQuiz = () => {
@@ -36,13 +22,16 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
       deck
     })
   }
-  
+
+  const title = deck !== undefined ? deck[0].title : ''
+  const cards = deck !== undefined ? deck[0].cards.length : ''
+
   return ( 
     <View style={styles.container}>
-    {deck !== undefined ? 
+    {deck ? (
       <>
-        <Text style={styles.title}>{ deck && deck[0].title}</Text>
-        <Text style={styles.subtitle}>{ deck && deck[0].cards.length} cards</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subtitle}>{cards} cards</Text>
         <TouchableOpacity style={styles.btnStart} onPress={() => handleStartQuiz()}>
         <Text style={styles.btnStartText}>Start Quiz</Text>
         </TouchableOpacity>
@@ -53,9 +42,9 @@ const Deck = ({ dispatch, navigation, route, decks}) => {
         <Text style={styles.delete}>Delete Deck</Text>
         </TouchableWithoutFeedback>
       </>
-      :
-      null
-    }   
+    )
+    : null
+    } 
     </View>
    )
   
@@ -129,9 +118,20 @@ const styles = StyleSheet.create({
 })
 
 
-function mapStateToProps ({ decks }) {
+function mapStateToProps ({ decks }, { route }) {
+  // Transforming nested object into array of objects
+  const arr = Object.entries(decks)
+  const decksArray = []
+  for(let i = 0; i < arr.length; i++) {
+  decksArray.push(arr[i][1])
+  }
+
+  const id = route.params.id
+  const deck = decksArray.filter(d => d.id === id)
+
   return {
-    decks
+    deck,
+    id
   }
 }
 

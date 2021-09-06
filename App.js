@@ -18,9 +18,9 @@ const store = createStore(reducer, middleware)
 const Stack = createStackNavigator();
 
 class App extends React.Component {
-  componentDidMount() {
-    setLocalNotification()
-  }
+  // componentDidMount() {
+  //   setLocalNotification()
+  // }
 
   render() {
   return (

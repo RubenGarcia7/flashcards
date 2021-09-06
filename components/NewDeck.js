@@ -20,8 +20,8 @@ const NewDeck = ({ navigation, dispatch, decks }) => {
         initialValues={{title: ''}}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          dispatch(handleAddDeck(values.title, navigation))
-          // console.log(values.title)
+          dispatch(handleAddDeck(values.title))
+          navigation.navigate('DeckList')
         }}
       >
         {({ handleChange, handleSubmit, values, touched, errors }) => (
